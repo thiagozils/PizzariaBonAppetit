@@ -1,8 +1,27 @@
-﻿@model PizzariaBonAppetit.Models.Pizza
+﻿@model PizzariaBonAppetit.ViewModels.PizzaIndexViewModel
+
 @{
-    ViewBag.Title = "ViewPizza";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h2>Pizzas</h2>
 
-<h2>@Model.Name Custa @Model.Prize</h2>
+@if (@Model.Pizzas.Count > 0)
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr><th>Pizza</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var pizza in Model.Pizzas)
+            {
+                <tr><td>@pizza.Name</td></tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>We don't have any movies yet.</p>
+}
 
