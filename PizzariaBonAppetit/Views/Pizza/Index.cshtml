@@ -15,13 +15,13 @@
         <tbody>
             @foreach (var pizza in Model.Pizzas)
             {
-                <tr><td>@pizza.Name</td></tr>
+                <tr><td>@Html.ActionLink(@pizza.Name, "Details", new { pizza.Id })</td></tr>
             }
         </tbody>
     </table>
 }
 else
 {
-    <p>We don't have any movies yet.</p>
+    <p>We don't have any pizzas yet.</p>
 }
 

@@ -10,11 +10,8 @@ namespace PizzariaBonAppetit.Controllers
 {
     public class PizzaController : Controller
     {
-        // GET: Pizza
-        public ActionResult Index()
-        {
 
-            var pizzas = new List<Pizza>
+        public List<Pizza> pizzas = new List<Pizza>
             {
                 new Pizza {Name = "4Queijos", Id = 1 , Prize= 22.50, HaveEdge = true},
                 new Pizza {Name = "Bacon", Id = 2, Prize= 30.65, HaveEdge = true},
@@ -23,6 +20,10 @@ namespace PizzariaBonAppetit.Controllers
 
             };
 
+
+        // GET: Pizza
+        public ActionResult Index()
+        {
             var viewModel = new PizzaIndexViewModel
             {
                 Pizzas = pizzas
@@ -30,5 +31,22 @@ namespace PizzariaBonAppetit.Controllers
 
             return View(viewModel);
        }
+
+        public ActionResult Details(int id)
+        {
+
+            if (pizzas.Count < 0)
+
+            {
+
+                return HttpNotFound();
+
+            }
+
+            Pizza pizza = pizzas[id - 1];
+            return View(pizza);
+
+        }
+
     }
 }

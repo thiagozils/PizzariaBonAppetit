@@ -12,6 +12,11 @@ namespace PizzariaBonAppetit.Models
         public string Name { get; set; }
         public string Address { get; set; }
 
+        public Customer()
+        {
+
+        }
+
         public Customer(int Id, string CPf , string Name, string Address)
         {
             this.Id = Id;
