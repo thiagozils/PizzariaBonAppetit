@@ -1,0 +1,26 @@
+﻿@model PizzariaBonAppetit.Models.Customer
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2><span class="glyphicon glyphicon-user"></span> &nbsp;  @Model.Name</h2>
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Endereço</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">@Model.Id</th>
+            <td>@Model.Name</td>
+            <td>@Model.Cpf</td>
+            <td>@Model.Address</td>
+        </tr>
+    </tbody>
+</table>
