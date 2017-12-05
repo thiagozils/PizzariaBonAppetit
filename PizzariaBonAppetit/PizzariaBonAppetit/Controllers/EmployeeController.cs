@@ -23,16 +23,18 @@ namespace PizzariaBonAppetit.Controllers
         }
 
 
-
+        [AllowAnonymous]
         public ActionResult Index()
         {
 
             var viewModel = _context.Employees.ToList();
-            return View(viewModel);
+            if (User.IsInRole(RoleName.CanManageCustomers))
+                return View(viewModel);
+            return View("ReadOnlyIndex", viewModel);
 
 
         }
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult Details(int id)
         {
 
@@ -42,7 +44,7 @@ namespace PizzariaBonAppetit.Controllers
 
         }
 
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult New()
         {
             var viewModel = new Employee();
@@ -50,7 +52,7 @@ namespace PizzariaBonAppetit.Controllers
             return View("EmployeeForm", viewModel);
 
         }
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult Edit(int id)
         {
             var employee = _context.Employees.SingleOrDefault(c => c.Id == id);
@@ -61,7 +63,7 @@ namespace PizzariaBonAppetit.Controllers
             return View("EmployeeForm", employee);
         }
 
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         [HttpPost] // só será acessada com POST
         public ActionResult Save(Employee employee) // recebemos um cliente
         {
@@ -89,6 +91,23 @@ namespace PizzariaBonAppetit.Controllers
             // Voltamos para a lista de clientes
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = RoleName.CanManageCustomers)]
+        public ActionResult Delete(int id)
+        {
+            var func = _context.Employees.SingleOrDefault(c => c.Id == id);
+            if (func == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                _context.Employees.Remove(func);
+                _context.SaveChanges();
+            }
+            return new HttpStatusCodeResult(200);
+        }
+
+
 
     }
 

@@ -22,17 +22,19 @@ namespace PizzariaBonAppetit.Controllers
         {
             _context.Dispose();
         }
-        
+
+        [AllowAnonymous]
         public ActionResult Index()
         {
-
-
             var viewModel = _context.Pizzas.ToList();
 
-            return View(viewModel);
+            if (User.IsInRole(RoleName.CanManageCustomers))
+                return View(viewModel);
+            return View("ReadOnlyIndex", viewModel);
 
         }
 
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult Details(int id)
         {
 
@@ -41,7 +43,7 @@ namespace PizzariaBonAppetit.Controllers
         }
 
 
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult New()
         {
             var pizza = new Pizza();
@@ -50,6 +52,7 @@ namespace PizzariaBonAppetit.Controllers
 
         }
 
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult Edit(int id)
         {
             var pizza = _context.Pizzas.SingleOrDefault(c => c.Id == id);
@@ -93,6 +96,24 @@ namespace PizzariaBonAppetit.Controllers
             // Voltamos para a lista de clientes
             return RedirectToAction("Index");
         }
+
+        [Authorize(Roles = RoleName.CanManageCustomers)]
+        public ActionResult Delete(int id)
+        {
+            var pizza = _context.Pizzas.SingleOrDefault(c => c.Id == id);
+            if (pizza == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                _context.Pizzas.Remove(pizza);
+                _context.SaveChanges();
+            }
+            return new HttpStatusCodeResult(200);
+        }
+
+
 
 
     }

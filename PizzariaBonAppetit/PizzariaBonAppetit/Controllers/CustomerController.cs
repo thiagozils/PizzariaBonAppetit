@@ -21,23 +21,26 @@ namespace PizzariaBonAppetit.Controllers
             _context.Dispose();
         }
 
-        
+        [AllowAnonymous]
         public ActionResult Index()
         {
 
             var viewModel = _context.Customers.ToList() ;
-            return View(viewModel);
+            if (User.IsInRole(RoleName.CanManageCustomers))
+                return View(viewModel);
+            return View("ReadOnlyIndex", viewModel);
 
-           
+
         }
 
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult Details(int id)
         {
             var viewModel = _context.Customers.Find(id);
             return View(viewModel);
         }
 
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult New()
         {
             var viewModel = new Customer();
@@ -45,7 +48,7 @@ namespace PizzariaBonAppetit.Controllers
             return View("CustomerForm", viewModel);
 
         }
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult Edit(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
@@ -62,7 +65,7 @@ namespace PizzariaBonAppetit.Controllers
 
 
 
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         [HttpPost] // só será acessada com POST
         public ActionResult Save(Customer customer) // recebemos um cliente
         {
@@ -89,7 +92,7 @@ namespace PizzariaBonAppetit.Controllers
             // Voltamos para a lista de clientes
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult Delete(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);

@@ -16,7 +16,8 @@ namespace PizzariaBonAppetit
               "~/Scripts/jquery.validate.js",
                 "~/Scripts/jquery.validate.unobtrusive.js",
                 "~/Scripts/modelo-pt.js",
-                  "~/Scripts/helper.js"
+                  "~/Scripts/helper.js",
+                  "~/Scripts/jquery.mask.js"
                 );
             bundle.Orderer = new AsIsBundleOrderer();
             bundles.Add(bundle);
@@ -33,7 +34,8 @@ namespace PizzariaBonAppetit
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-lux.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/material-icons.css"));
         }
     }
 }

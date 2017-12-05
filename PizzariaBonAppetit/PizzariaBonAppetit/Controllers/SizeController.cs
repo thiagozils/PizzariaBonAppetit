@@ -24,18 +24,23 @@ namespace PizzariaBonAppetit.Controllers
 
 
         // GET: Size
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var viewModel = _context.Sizes.ToList();
-            return View(viewModel);
+            if (User.IsInRole(RoleName.CanManageCustomers))
+                return View(viewModel);
+            return View("ReadOnlyIndex", viewModel);
         }
 
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult Details(int id)
         {
             var viewModel = _context.Sizes.Find(id);
             return View(viewModel);
         }
 
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult New()
         {
             var viewModel = new Size();
@@ -44,6 +49,7 @@ namespace PizzariaBonAppetit.Controllers
 
         }
 
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult Edit(int id)
         {
             var size = _context.Sizes.SingleOrDefault(c => c.Id == id);
@@ -54,7 +60,7 @@ namespace PizzariaBonAppetit.Controllers
             return View("SizeForm", size);
         }
 
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         [HttpPost] // só será acessada com POST
         public ActionResult Save(Size size) // recebemos um cliente
         {
@@ -82,7 +88,21 @@ namespace PizzariaBonAppetit.Controllers
             return RedirectToAction("Index");
         }
 
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
+        public ActionResult Delete(int id)
+        {
+            var size = _context.Sizes.SingleOrDefault(c => c.Id == id);
+            if (size == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                _context.Sizes.Remove(size);
+                _context.SaveChanges();
+            }
+            return new HttpStatusCodeResult(200);
+        }
 
 
     }

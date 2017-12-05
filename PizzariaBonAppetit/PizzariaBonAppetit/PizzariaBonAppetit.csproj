@@ -244,8 +244,17 @@
     <Compile Include="Migrations\201711212221325_InitialModel7.Designer.cs">
       <DependentUpon>201711212221325_InitialModel7.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712051246450_createUsers.cs" />
+    <Compile Include="Migrations\201712051246450_createUsers.Designer.cs">
+      <DependentUpon>201712051246450_createUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712051749399_AddData.cs" />
+    <Compile Include="Migrations\201712051749399_AddData.Designer.cs">
+      <DependentUpon>201712051749399_AddData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\Size.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -264,7 +273,6 @@
     <Content Include="App_Data\aspnet-PizzariaBonAppetit-20170814124629_log.ldf">
       <DependentUpon>aspnet-PizzariaBonAppetit-20170814124629.mdf</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap-materia.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\HEADER-FRONT.png" />
@@ -272,6 +280,7 @@
     <Content Include="Content\img\img1.png" />
     <Content Include="Content\img\img2.jpg" />
     <Content Include="Content\img\img3.jpg" />
+    <Content Include="Content\material-icons.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -300,6 +309,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.mask.js" />
     <Content Include="Scripts\jquery.validate.globalize.js" />
     <Content Include="Scripts\jquery.validate.globalize.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -360,6 +370,11 @@
     <Content Include="Views\Size\SizeForm.cshtml" />
     <Content Include="Views\Pizza\PizzaForm.cshtml" />
     <Content Include="Views\Order\OrderForm.cshtml" />
+    <Content Include="Views\Pizza\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Customer\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Size\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Order\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Employee\ReadOnlyIndex.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -397,6 +412,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711212221325_InitialModel7.resx">
       <DependentUpon>201711212221325_InitialModel7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712051246450_createUsers.resx">
+      <DependentUpon>201712051246450_createUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712051749399_AddData.resx">
+      <DependentUpon>201712051749399_AddData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

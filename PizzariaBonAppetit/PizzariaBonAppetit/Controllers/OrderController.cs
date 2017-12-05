@@ -26,21 +26,24 @@ namespace PizzariaBonAppetit.Controllers
 
 
         // GET: Order
+        [AllowAnonymous]
         public ActionResult Index()
         {
 
             var viewModel = _context.Orders.ToList();
-            return View(viewModel);
+            if (User.IsInRole(RoleName.CanManageCustomers))
+                return View(viewModel);
+            return View("ReadOnlyIndex", viewModel);
 
 
         }
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult Details(int id)
         {
             var viewModel = _context.Orders.Include(a => a.Pizza).Include(a => a.Customer).Include(a => a.Size).SingleOrDefault(a => a.Id == id) ;
             return View(viewModel);
         }
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult New()
         {
             var pizzas = _context.Pizzas.ToList();
@@ -56,7 +59,7 @@ namespace PizzariaBonAppetit.Controllers
 
             return View("OrderForm", viewModel);
         }
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         [HttpPost] // só será acessada com POST
         [ValidateAntiForgeryToken]
         public ActionResult Save(Order order) // recebemos um cliente
@@ -96,7 +99,7 @@ namespace PizzariaBonAppetit.Controllers
             // Voltamos para a lista de clientes
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = RoleName.CanManageCustomers)]
         public ActionResult Edit(int id)
         {
             var order = _context.Orders.SingleOrDefault(c => c.Id == id);
@@ -114,6 +117,24 @@ namespace PizzariaBonAppetit.Controllers
 
             return View("OrderForm", viewModel);
         }
+
+
+        [Authorize(Roles = RoleName.CanManageCustomers)]
+        public ActionResult Delete(int id)
+        {
+            var order = _context.Orders.SingleOrDefault(c => c.Id == id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                _context.Orders.Remove(order);
+                _context.SaveChanges();
+            }
+            return new HttpStatusCodeResult(200);
+        }
+
     }
 }
 

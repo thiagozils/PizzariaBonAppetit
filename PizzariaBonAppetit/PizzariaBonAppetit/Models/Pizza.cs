@@ -20,6 +20,7 @@ namespace PizzariaBonAppetit.Models
         [Required(ErrorMessage = "Por favor digite o preço.")]
         [Display(Name = "Preço")]
         public double? Prize { get; set; }
+
         [StringLength(300)]
         [Display(Name = "Descrição")]
         public string Description { get; set; }

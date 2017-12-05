@@ -7,14 +7,24 @@
 <br />
 @if (Model.Any())
 {
-    <table class="table table-bordered table-hover">
+    <table id="orders" class="table table-bordered table-hover">
         <thead>
-            <tr><th>Pedidos</th></tr>
+            <tr>
+                 <th>Pedidos</th>
+                <th style="width: 20PX">REMOVER</th>
+            </tr>
         </thead>
         <tbody>
             @foreach (var order in Model)
             {
-                <tr><td>@Html.ActionLink("Pedido nº "+order.Id, "Details", new { order.Id })</td></tr>
+                <tr>
+                    <td>@Html.ActionLink("Pedido nº "+order.Id, "Details", new { order.Id })</td>
+                    <td style="width: 20px" style="text-align: center">
+                        <a data-customer-id="@order.Id" class="js-delete">
+                            <center><i class="material-icons" style="cursor: pointer">delete_forever</i></center>
+                        </a>
+                    </td>
+                </tr>
     
             }
         </tbody>
@@ -29,3 +39,25 @@ else
 <p>
     @Html.ActionLink("Novo Pedido", "New", null, new { @class = "btn btn-primary" })
 </p>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#orders").on("click", ".js-delete",
+                function () {
+                    var button = $(this);
+                    if (confirm("Tem certeza que quer remover esta Ordem?")) {
+                        $.ajax({
+                            url: "/order/delete/" + button.attr("data-customer-id"),
+                            method: "GET",
+                            success: function () {
+                                button.parents("tr").remove();
+                            }
+                        });
+                    }
+                });
+        });
+    </script>
+}
