@@ -23,7 +23,6 @@ namespace PizzariaBonAppetit.Controllers
             _context.Dispose();
         }
 
-        [AllowAnonymous]
         public ActionResult Index()
         {
             var viewModel = _context.Pizzas.ToList();

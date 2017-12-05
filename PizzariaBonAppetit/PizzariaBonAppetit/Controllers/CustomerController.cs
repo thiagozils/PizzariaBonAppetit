@@ -21,7 +21,7 @@ namespace PizzariaBonAppetit.Controllers
             _context.Dispose();
         }
 
-        [AllowAnonymous]
+       
         public ActionResult Index()
         {
 

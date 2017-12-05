@@ -26,7 +26,7 @@ namespace PizzariaBonAppetit.Controllers
 
 
         // GET: Order
-        [AllowAnonymous]
+        
         public ActionResult Index()
         {
 
