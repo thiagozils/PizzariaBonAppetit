@@ -1,0 +1,32 @@
+﻿@model List<PizzariaBonAppetit.Models.Order>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+@if (Model.Any())
+{
+    <table id="orders" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                 <th>Pedidos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>Pedido nº @order.Id</td>
+
+                </tr>
+    
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <br />
+    <p>Sem pedidos até o momento.</p>
+}

@@ -1,0 +1,31 @@
+﻿@model List<PizzariaBonAppetit.Models.Employee>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+@if (Model.Any())
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr><th>Funcionários</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var func in Model)
+            {
+                <tr><td>@Html.ActionLink(func.Name, "Details", new { func.Id })</td></tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <br />
+    <p>Sem funcionários até o momento.</p>
+}
+
+
+<p>
+    @Html.ActionLink("Novo Funcionário", "New", null, new { @class = "btn btn-primary" })
+</p>

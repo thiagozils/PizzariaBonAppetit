@@ -1,0 +1,30 @@
+﻿@model List <PizzariaBonAppetit.Models.Pizza>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+@if (Model.Any())
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr><th>Pizzas</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var pizza in Model)
+            {
+                <tr><td>@Html.ActionLink(pizza.Name, "Details", new { pizza.Id })</td></tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <br />
+    <p>Sem pizzas no momento.</p>
+}
+
+<p>
+    @Html.ActionLink("Nova Pizza", "New", null, new { @class = "btn btn-primary" })
+</p>

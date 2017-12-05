@@ -1,0 +1,66 @@
+﻿@model List <PizzariaBonAppetit.Models.Customer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+
+@if (Model.Any())
+{
+    <table id="customers" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th></th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var cliente in Model)
+            {
+                <tr> 
+                    <td>@Html.ActionLink(@cliente.Name, "Details", new { cliente.Id })</td>
+                    <td>
+                        <button data-customer-id="@cliente.Id" class="btn-link js-delete">Remover</button>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Ainda não existem clientes.</p>
+}
+
+<p>
+    @Html.ActionLink("Novo Cliente", "New", null, new { @class = "btn btn-primary" })
+</p>
+
+
+@section scripts
+{
+<script>
+    $(document).ready(function () {
+        $("#customers").on("click", ".js-delete",
+            function () {
+                var button = $(this);
+                bootbox.confirm("Tem certeza que quer remover este cliente?",
+                    function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: "/customer/delete/" + button.attr("data-customer-id"),
+                                method: "GET",
+                                success: function () {
+                                    button.parents("tr").remove();
+                                }
+                            });
+                        }
+                    });
+            });
+    });
+</script>
+
+}

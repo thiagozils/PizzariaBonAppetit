@@ -1,0 +1,31 @@
+﻿@model List<PizzariaBonAppetit.Models.Order>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+@if (Model.Any())
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr><th>Pedidos</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr><td>@Html.ActionLink("Pedido nº "+order.Id, "Details", new { order.Id })</td></tr>
+    
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <br />
+    <p>Sem pedidos até o momento.</p>
+}
+
+<p>
+    @Html.ActionLink("Novo Pedido", "New", null, new { @class = "btn btn-primary" })
+</p>
