@@ -1,0 +1,29 @@
+﻿@model PizzariaBonAppetit.Models.Size
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Preço</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">@Model.Id</th>
+            <td>@Model.Name</td>
+            <td>@Model.Prize</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+    @Html.ActionLink("Editar", "Edit", new { Model.Id }, new { @class = "btn btn-primary" })
+</p>

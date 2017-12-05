@@ -1,0 +1,36 @@
+﻿@model List <PizzariaBonAppetit.Models.Pizza>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+@if (Model.Any())
+{
+    <table id="pizzas" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Pizzas</th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var pizza in Model)
+    {
+        <tr>
+            <td>@pizza.Name</td>
+
+        </tr>
+
+    }
+        </tbody>
+    </table>
+}
+else
+{
+    <br />
+    <p>Sem pizzas no momento.</p>
+}
+
+
+
+
